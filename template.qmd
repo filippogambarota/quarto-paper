@@ -1,0 +1,190 @@
+---
+title: Title
+shorttitle: Short Title
+bibliography: "`r filor::fil()$bib`"
+csl: "`r filor::fil()$csl`"
+author:
+  - name: Filippo Gambarota
+    corresponding: true
+    orcid: "`r filor::fil()$orcid`"
+    email: filippo.gambarota@unipd.it
+    # Roles are optional
+    # Select from the CRediT: Contributor Roles Taxonomy https://credit.niso.org/
+    # Conceptualization, Data curation, Formal Analysis, Funding acquisition, Investigation, 
+    # Methodology, Project administration, Resources, Software, Supervision, Validation, 
+    # Visualization, Writing – original draft, Writing – review & editing
+    role:
+      - Conceptualization
+      - Writing - original draft
+    affiliations:
+      - id: id1
+        name: University of Padova
+        department: Department of Developmental and Social Psychology
+        address: Via Venezia 8
+        city: Padova
+        region: Italy
+        postal-code: 35131
+format:
+  quarto-paper-pdf:
+    keep-tex: false
+floatsintext: false
+clearbeforesec: false
+showrevision: false
+revisioncolor: red
+draft: true
+preprint: false
+toc: false
+params:
+    floatplaceh: true
+knit: (function(inputFile, encoding) { 
+      quarto::quarto_render(inputFile,
+                    encoding=encoding, 
+                    output_file='new_file_name.html'))})
+---
+
+```{r}
+#| label: setup
+#| include: false
+
+knitr::opts_chunk$set(echo = FALSE,
+                      dev = "tikz",
+                      fig.width = 7,
+                      fig.asp = 0.618,
+                      fig.align = "center",
+                      comment = "#>",
+                      message = FALSE,
+                      warning = FALSE,
+                      fig.place = FALSE)
+
+```
+
+```{r}
+#| label: packages
+#| include: false
+library(kableExtra)
+library(ggplot2)
+library(viridis)
+library(filor)
+```
+
+```{r}
+#| label: ggplot2
+#| include: false
+mtheme <- function(size = 15){
+  theme_minimal(base_size = size, 
+                base_family = "sans") +
+  theme(legend.position = "bottom",
+        plot.title = element_text(hjust = 0.5),
+        strip.text = element_text(face = "bold"),
+        panel.grid.minor = element_blank())
+}
+
+theme_set(mtheme())
+
+# palettes
+options(ggplot2.continuous.colour="viridis")
+options(ggplot2.continuous.fill = "viridis")
+scale_colour_discrete <- scale_colour_viridis_d
+scale_fill_discrete <- scale_fill_viridis_d
+```
+
+```{r}
+#| label: kable
+#| include: false
+qtab <- function(data, digits = 3){
+  data |> 
+        kable(format = "latex",
+              booktabs = TRUE, 
+              align = "c", 
+              digits = digits,
+              linesep = "") |> 
+        kable_styling(full_width = FALSE) |> 
+        row_spec(0, bold = TRUE) # bold header
+}
+```
+
+```{r}
+#| label: fighook
+#| include: false
+#| eval: !expr params$floatplaceh
+
+fig_counter <- filor::scount()
+tbl_counter <- filor::scount()
+
+knitr::opts_chunk$set(fig.process = filor::rename_figs())
+knitr::knit_hooks$set(fig.place = function(before = FALSE, options) {
+  if(isTRUE(options$fig.place)){
+      if(before){
+          NULL
+      }else{
+          sprintf("\n \\begin{center}\\textbf{[Figure %s about here]} \\end{center}\n", fig_counter())
+      }
+  }
+})
+knitr::knit_hooks$set(tbl.place = function(before = FALSE, options) {
+  if(isTRUE(options$tbl.place)){
+      if(before){
+          NULL
+      }else{
+          sprintf("\n \\begin{center}\\textbf{[Table %s about here]} \\end{center}\n", tbl_counter())
+      }
+  }
+})
+```
+
+# Introduction
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sit amet cursus sit amet dictum. Accumsan in nisl nisi scelerisque eu ultrices vitae. Malesuada bibendum arcu vitae elementum curabitur vitae nunc sed. Sem nulla pharetra diam sit amet nisl suscipit adipiscing bibendum. Semper auctor neque vitae tempus quam pellentesque. Faucibus scelerisque eleifend donec pretium vulputate sapien. In eu mi bibendum neque egestas congue quisque egestas. Dignissim enim sit amet venenatis urna cursus eget nunc scelerisque. Porttitor massa id neque aliquam vestibulum morbi. Id aliquet lectus proin nibh nisl condimentum id venenatis a. Neque vitae tempus quam pellentesque nec nam aliquam. Aliquet bibendum enim facilisis gravida neque convallis a cras. Nam libero justo laoreet sit amet cursus sit. Sit amet nulla facilisi morbi tempus iaculis. Amet tellus cras adipiscing enim eu turpis egestas. Quam elementum pulvinar etiam non quam lacus. Vivamus at augue eget arcu dictum varius duis at consectetur. Fringilla urna porttitor rhoncus dolor purus non enim praesent elementum.
+
+You can easily cite something @Etz2018-fl, but also [@Veroniki2016-zs].
+
+# Method
+
+# Results
+
+As depicted in @fig-iris and in @tbl-iris lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sit amet cursus sit amet dictum. Accumsan in nisl nisi scelerisque eu ultrices vitae. Malesuada bibendum arcu vitae elementum curabitur vitae nunc sed. Sem nulla pharetra diam sit amet nisl suscipit adipiscing bibendum. Semper auctor neque vitae tempus quam pellentesque. Faucibus scelerisque eleifend donec pretium vulputate sapien. In eu mi bibendum neque egestas congue quisque egestas. Dignissim enim sit amet venenatis urna cursus eget nunc scelerisque. Porttitor massa id neque aliquam vestibulum morbi. Id aliquet lectus proin nibh nisl condimentum id venenatis a. Neque vitae tempus quam pellentesque nec nam aliquam. Aliquet bibendum enim facilisis gravida neque convallis a cras. Nam libero justo laoreet sit amet cursus sit. Sit amet nulla facilisi morbi tempus iaculis. Amet tellus cras adipiscing enim eu turpis egestas. Quam elementum pulvinar etiam non quam lacus. Vivamus at augue eget arcu dictum varius duis at consectetur. Fringilla urna porttitor rhoncus dolor purus non enim praesent elementum.
+
+```{r fig.place = params$floatplaceh}
+#| label: fig-iris
+#| fig-cap: My beautiful caption
+iris |> 
+    ggplot(aes(x = Sepal.Length, y = Sepal.Width, color = Species)) + 
+    geom_point() +
+    geom_smooth()
+```
+
+```{r tbl.place = params$floatplaceh}
+#| label: tbl-iris
+#| tbl-cap: My beautiful caption
+iris[1:5, ] |> 
+    qtab()
+```
+
+As depicted in @fig-iris and in @tbl-iris lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sit amet cursus sit amet dictum. Accumsan in nisl nisi scelerisque eu ultrices vitae. Malesuada bibendum arcu vitae elementum curabitur vitae nunc sed. Sem nulla pharetra diam sit amet nisl suscipit adipiscing bibendum. Semper auctor neque vitae tempus quam pellentesque. Faucibus scelerisque eleifend donec pretium vulputate sapien. In eu mi bibendum neque egestas congue quisque egestas. Dignissim enim sit amet venenatis urna cursus eget nunc scelerisque. Porttitor massa id neque aliquam vestibulum morbi. Id aliquet lectus proin nibh nisl condimentum id venenatis a. Neque vitae tempus quam pellentesque nec nam aliquam. Aliquet bibendum enim facilisis gravida neque convallis a cras. Nam libero justo laoreet sit amet cursus sit. Sit amet nulla facilisi morbi tempus iaculis. Amet tellus cras adipiscing enim eu turpis egestas. Quam elementum pulvinar etiam non quam lacus. Vivamus at augue eget arcu dictum varius duis at consectetur. Fringilla urna porttitor rhoncus dolor purus non enim praesent elementum.
+
+As depicted in @fig-iris and in @tbl-iris lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sit amet cursus sit amet dictum. Accumsan in nisl nisi scelerisque eu ultrices vitae. Malesuada bibendum arcu vitae elementum curabitur vitae nunc sed. Sem nulla pharetra diam sit amet nisl suscipit adipiscing bibendum. Semper auctor neque vitae tempus quam pellentesque. Faucibus scelerisque eleifend donec pretium vulputate sapien. In eu mi bibendum neque egestas congue quisque egestas. Dignissim enim sit amet venenatis urna cursus eget nunc scelerisque. Porttitor massa id neque aliquam vestibulum morbi. Id aliquet lectus proin nibh nisl condimentum id venenatis a. Neque vitae tempus quam pellentesque nec nam aliquam. Aliquet bibendum enim facilisis gravida neque convallis a cras. Nam libero justo laoreet sit amet cursus sit. Sit amet nulla facilisi morbi tempus iaculis. Amet tellus cras adipiscing enim eu turpis egestas. Quam elementum pulvinar etiam non quam lacus. Vivamus at augue eget arcu dictum varius duis at consectetur. Fringilla urna porttitor rhoncus dolor purus non enim praesent elementum.
+
+As depicted in @fig-iris and in @tbl-iris lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sit amet cursus sit amet dictum. Accumsan in nisl nisi scelerisque eu ultrices vitae. Malesuada bibendum arcu vitae elementum curabitur vitae nunc sed. Sem nulla pharetra diam sit amet nisl suscipit adipiscing bibendum. Semper auctor neque vitae tempus quam pellentesque. Faucibus scelerisque eleifend donec pretium vulputate sapien. In eu mi bibendum neque egestas congue quisque egestas. Dignissim enim sit amet venenatis urna cursus eget nunc scelerisque. Porttitor massa id neque aliquam vestibulum morbi. Id aliquet lectus proin nibh nisl condimentum id venenatis a. Neque vitae tempus quam pellentesque nec nam aliquam. Aliquet bibendum enim facilisis gravida neque convallis a cras. Nam libero justo laoreet sit amet cursus sit. Sit amet nulla facilisi morbi tempus iaculis. Amet tellus cras adipiscing enim eu turpis egestas. Quam elementum pulvinar etiam non quam lacus. Vivamus at augue eget arcu dictum varius duis at consectetur. Fringilla urna porttitor rhoncus dolor purus non enim praesent elementum.
+
+```{r fig.place = params$floatplaceh}
+#| label: fig-iris2
+#| fig-cap: My beautiful caption
+iris |> 
+    ggplot(aes(x = Sepal.Length, y = Sepal.Width, color = Species)) + 
+    geom_point() +
+    geom_smooth()
+```
+
+```{r tbl.place = params$floatplaceh}
+#| label: tbl-iris2
+#| tbl-cap: My beautiful caption
+iris[1:5, ] |> 
+    qtab()
+```
+
+\newpage
+
+# References
+
+::: {#refs}
+:::
